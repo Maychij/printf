@@ -1,65 +1,45 @@
-#ifndef _HOLBERTON_H_
-#define _HOLBERTON_H_
+#ifndef _HOLBERTON_H
+#define _HOLBERTON_H
 
-#include <stdio.h>
+#define SIZE 2048
+
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <limits.h>
 
-/**
-* struct storage - structure that holds information on the buffer
-* @size: holds the size to write from the buffer
-* @box: pointer to the array
-* @start: pointer to the beginning of the array, will not be modified
-*/
-typedef struct storage
-{
-	int size;
-	char *box;
-	char *start;
-} mk_buffer;
-
-/**
-* struct format - a structure that holds the string to be printed and a format
-* checker function pointer
-* @format: holds the string to print
-* @f: a function pointer
-*/
-typedef struct format
-{
-	char *format;
-	mk_buffer(*f)(mk_buffer, va_list);
-} format_t;
-
-/* Essential functions */
 int _printf(const char *format, ...);
+int (*format_type(char *s))(va_list vlist, char *output_p, int o_p);
+int print_percent(va_list vlist, char *output_p, int o_p);
+int print_char(va_list vlist, char *output_p, int o_p);
+int s_trlen(char *str);
+int print_string(va_list vlist, char *output_p, int o_p);
+int print_numbers(int n, char *output_p, int o_p);
+int print_int(va_list vlist, char *output_p, int o_p);
+int print_single_int(va_list vlist, char *output_p, int o_p);
+int print_octal(va_list vlist, char *output_p, int o_p);
+int print_unumber(va_list vlist, char *output_p, int o_p);
+int print_hexa(va_list vlist, char *output_p, int o_p);
+int print_HEXA(va_list vlist, char *output_o, int o_p);
+int print_HEXA_S(char s, char *output_p, int o_p);
+int print_S_string(va_list vlist, char *output_p, int o_p);
+int print_paddress(va_list vlist, char *output_p, int o_p);
+int print_rot13(va_list vlist, char *output_p, int o_p);
 
-/* Conversion specifier functions */
-mk_buffer(*get_format(const char *format))(mk_buffer, va_list);
-mk_buffer char_fmt(mk_buffer, va_list args);
-mk_buffer str_fmt(mk_buffer, va_list args);
-mk_buffer int_fmt(mk_buffer, va_list args);
-mk_buffer rev_fmt(mk_buffer, va_list args);
-mk_buffer rot13_fmt(mk_buffer buffer, va_list args);
-mk_buffer upp_hex_fmt(mk_buffer buffer, va_list args);
-mk_buffer low_hex_fmt(mk_buffer buffer, va_list args);
-mk_buffer space_fmt(mk_buffer container, const char *format, va_list args);
-mk_buffer default_fmt(mk_buffer container, const char *format);
-mk_buffer nl_fmt(mk_buffer buff, va_list var);
-mk_buffer spc_fmt(mk_buffer buff, va_list var);
-mk_buffer binary_fmt(mk_buffer buffer, va_list args);
-mk_buffer ptr_fmt(mk_buffer buffer, va_list args);
+/**
+ * struct t_format - Struct t_format
+ *
+ * @character: the class
+ * @func: pointer to a function
+ *
+ * Description: the structure for the format type
+ */
+typedef struct t_format
+{
+	char *character;
+	int (*func)(va_list vlist, char *output_p, int o_p);
+} t_f;
 
-/* Helper functions */
-unsigned int _strlen(char *str);
-mk_buffer rec_digits(int, mk_buffer);
-mk_buffer create_buffer(mk_buffer);
-mk_buffer add_buff(mk_buffer buff, va_list var, const char *fmt, char custom);
-void check_null(const char *);
-char *itoa(int num, int base);
-
-int is_printable(int);
-char *cvrt_upper_hex(int i);
-mk_buffer cap_s_fmt(mk_buffer buff, va_list var);
-
-#endif /* _HOLBERTON_H_ */
+#endif
