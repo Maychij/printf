@@ -1,243 +1,83 @@
-<h1 class="gap">0x11. C - printf</h1>
+# ALX Software Enginering Printf Team Project
+This team project is a custom made printf function for the C programming language called \_printf. It has been optimized to take various inputs and optional arguments based exactly on how the standard library function printf works. We submitted this as part of the ALX software engineering course requirement for grading.
 
-<p>Write your own <code>printf</code> function.</p>
+## **Synopsis**
+This function **\_printf()** writes output to stdout, the standard output stream with the format and options without making use of any of the standard library files. It was written to use a local buffer of 1024 bytes when printing although it can print larger sets of data.
 
-<p><img src="https://4.bp.blogspot.com/-YFU-CMWVfqk/W2x8VqlgbOI/AAAAAAAAAFY/mMRxSjYh3_0Zayef-2MlDKoIyEjIynzUQCLcBGAs/s1600/Screenshot%2Bfrom%2B2018-08-09%2B15-24-31.png" /></p>
+The \_printf() function returns the total number of characters printed to the stdout(excluding the null byte at the end of strings) after a successful execution.
 
-<h2><strong>Description</strong></h2>
+If an output error is encountered, a negative value of -1 is returned.
 
-<p>The <strong>printf project</strong>was made for <a href="https://github.com/Sofiag8">Diana Sofia Garcia</a> and <a href="https://github.com/steffanynaranjov">Steffany Naranjo Vargas</a>. Students of <a href="https://www.holbertonschool.com/"> Holberton School</a> For this project we have some instruction that you will see in this README.</p> 
+The prototype of this function is:  **int _printf(const char *format, ...);***
 
-<p><strong>Read or watch</strong>:</p>
+This means that it has one mandatory format argument, and an extra number of arguments that can be none, or many.
 
-<ul>
-<li><a href="/rltoken/lQ4Ecz5ZX_H3fk2qhKO-RA" title="Secrets of printf" target="_blank">Secrets of printf</a> </li>
-<li><a href="/rltoken/K5q7wmUvcQcDMsyziDqu6Q" title="Group Projects" target="_blank">Group Projects</a> (<em>Don&rsquo;t forget to read this</em>)</li>
-<li><a href="/rltoken/92Ppxs-a3NM0H8bwLdH6PA" title="Flowcharts" target="_blank">Flowcharts</a></li>
-</ul>
+**Format of the format string**
 
-<p><strong>man or help</strong>:</p>
+The format string is a character string starting and ending with double quotes. The format string is composed of zero or more directives; ordinary characters (not %), and conversion specifications, each of which results in fetching zero or more subsequent arguments. 
 
-<ul>
-<li><code>printf (3)</code></li>
-</ul>
+Each conversion specification is introduced by the character **%** and ends with a **conversion specifier**. In between there may be (in this order):
 
-<ul>
-<li>Your code will be compiled this way:</li>
-</ul>
+> Zero or more **flags**
+>
+> An optional field **width**
+>
+> An optional **precision** modifier
+>
+> An optional **length** modifier
 
-<pre><code>$ gcc -Wall -Werror -Wextra -pedantic *.c
-</code></pre>
+**The flag characters**
 
-<h4 class="task">
-0. I&#39;m not going anywhere. You can print that wherever you want to. I&#39;m here and I&#39;m a Spur for life
-<span class="alert alert-warning mandatory-optional">
-mandatory
-</span>
-</h4>
-<p>Write a function that produces output according to a format.</p>
-<ul>
-<li><code>c</code></li>
-<li><code>s</code></li>
-<li><code>%</code></li>
-</ul></li>
-<li>You don&rsquo;t have to reproduce the buffer handling of the C library <code>printf</code> function</li>
-<li>You don&rsquo;t have to handle the flag characters</li>
-<li>You don&rsquo;t have to handle field width</li>
-<li>You don&rsquo;t have to handle precision</li>
-<li>You don&rsquo;t have to handle the length modifiers</li>
-</ul>
+|**Flag**| Description  |
+|--|--|
+|**#**| For **o** conversions the first character of the output string is made zero (by prefixing a 0 if it was not zero already).  For **x** and **X** conversions, a nonzero result has the string "**0x**" or "**0X**" respectively added. |
+|**0**| (Not implemented yet) The  value should be zero padded. For **d**, **i**, **o**, **u**, **x**, and **X** the converted value is padded on the left with zeros. If the 0 and **-** flags both appear,the **0** flag is ignored. If a precision is given with a numeric conversion, the **0** flag is ignored.|
+|**-**|(Minus sign, not implemented yet) The converted value is to be left adjusted on the field boundary, (Default is right justification) and  padded  with  blanks  in  the right rather than on the left with blanks or zeros. This flag overrides **0** if both are given.|
+|' '| (Blank Space) The argument is padded with a single blank space before a positive number or empty string produced by a signed conversion.|
+|**+**| A sign (+ or -) should always be placed before a number produced with a signed conversion.  By default, only negative numbers have this sign.|
 
+**The field width**
 
-<h4 class="task">
-1. Education is when you read the fine print. Experience is what you get ifyou don&#39;t
-<span class="alert alert-warning mandatory-optional">
-mandatory
-</span>
-</h4>
-<p>Handle the following conversion specifiers:</p>
+An  optional decimal digit string (with nonzero first digit) specifying a minimum field width.  If  the  converted  value  has  fewer characters  than  the field width, it will be padded with spaces on the left if the flag - is not present, and on the right  if  it  is present.  A character * can be used instead of a decimal string. In this case, an argument passed to the function will be taken as  the width value.
 
-<ul>
-<li><code>d</code></li>
-<li><code>i</code></li>
-<li>You don&rsquo;t have to handle the flag characters</li>
-<li>You don&rsquo;t have to handle field width</li>
-<li>You don&rsquo;t have to handle precision</li>
-<li>You don&rsquo;t have to handle the length modifiers</li>
-</ul>
+    printf("%5d", num);
 
+or
 
-<h4 class="task">
-2. Just because it&#39;s in print doesn&#39;t mean it&#39;s the gospel
-<span class="alert alert-warning mandatory-optional">
-mandatory
-</span>
-</h4>
-<p>Create a man page for your function.</p>
+	printf("%*d", width, num);
 
-<h4 class="task">
-ADVANCED TASKS
-3. With a face like mine, I do better in print
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-<p>Handle the following custom conversion specifiers:</p>
+**The precision**
 
-<ul>
-<li><code>b</code>: the unsigned int argument is converted to binary</li>
-</ul>
+ An  optional  precision,  in  the  form  of a period ('.')  followed by an optional decimal digit string.  A negative precision is taken  as  if  the precision were omitted.  This gives the minimum number of digits to appear for d, i, o, u, x, and X conversions,  or the  maximum  number of characters to be printed from a string for s and S conversions. A character * can be used instead of a  decimal string. In this case, an argument passed to the function will be taken as the precision value.
 
-<h4 class="task">
-4. What one has not experienced, one will never understand in print
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
+    printf("%.3d", num);
 
-<p>Handle the following conversion specifiers:</p>
+  or
 
-<ul>
-<li><code>u</code></li>
-<li><code>o</code></li>
-<li><code>x</code></li>
-<li><code>X</code></li>
-<li>You don&rsquo;t have to handle the flag characters</li>
-<li>You don&rsquo;t have to handle field width</li>
-<li>You don&rsquo;t have to handle precision</li>
-<li>You don&rsquo;t have to handle the length modifiers</li>
-</ul>
+    printf("%.*d", precision, num);
 
-<h4 class="task">
-5. Nothing in fine print is ever good news
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-<p>Use a local buffer of 1024 chars in order to call <code>write</code> as little as possible.</p>
+**The length modifiers**
 
-<h4 class="task">
-7. My weakness is wearing too much leopard print
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-  
-<p>Handle the following custom conversion specifier:</p>
+|Modifier| Description |
+|--|--|
+|**l**| An integer conversion to a **long int** or **unsigned long int** argument.  |
+|**h**| An integer conversion to a **short int** or **unsigned short int** argument. |
 
-<h4 class="task">
-6. How is the world ruled and led to war? Diplomats lie to journalists and believe these lies when they see them in print
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
+**The conversion specifier**
 
-<p>Handle the following conversion specifier: <code>p</code>.</p>
+|Specifier| Description |
+|--|--|
+|**d, i**|The argument **int** is converted to a signed decimal notation. If precision is present,it gives the minimum number of digits that must appear; if the converted value requires fewer digits, then it is padded with zeros on the left. Default precision is 1.|
+|**o, u, x, X**|The argument is converted to unsigned octal (**o**), unsigned decimal (**u**), or unsigned hexamedical (**x** and **X**) notation. The letters abcdef are used for x conversion and the letters ABCDEF are used for X conversion. If precision is present, it will give  the  minimum  number  of  digits  that  must appear; if the converted value requires fewer digits, then it will be padded with zeros. By default the precision is 1.  |
+|**c**|The  int argument is converted to an unsigned char and the resulting character is written. The representation of characters is based off the ASCII coding.|
+|**s**|The argument received is expected to be a pointer type char * to an array of characters.  Characters from this array are printed up  to  (but  not including) a null byte  (**'\0'**).  If precision is specified, then this will determine how many characters are taken into account for printing.|
+|**p**|A void * pointer argument is printed as hexadecimal in lower caps representing an adress in memory.|
+|**%**|A  ' **%** ' character is written and no conversion is made. The specification is as follows: **%%**. |
+|**b**|The argument is converted to an unsigned int value and then operated to get its binary representation (base 2).|
+|**S**| The  argument  received  is expected to be a pointer type char * to an array of characters.  Characters from this array are printed up to (but not including) a null byte  ('\0').  Non printable characters (0 < ASCII value < 32 or >= 127) are printed this way: \x, followed by  the  ASCII  code value in hexadecimal (upper case - always 2 characters). |
+|**r**|The  argument received is expected to be a pointer type char * to an array of characters.  Characters from this array are printed in reverse order up to (but not including) a null byte  ('\0').  |
+|**R**|The argument received is expected to be a pointer type char * to an array of characters.  Characters from this array  are  encoded  to  ROT13  and printed in order up to (but not including a null byte  ('\0').  |
 
-<ul>
-<li>You don&rsquo;t have to handle the flag characters</li>
-<li>You don&rsquo;t have to handle field width</li>
-<li>You don&rsquo;t have to handle precision</li>
-<li>You don&rsquo;t have to handle the length modifiers</li>
-</ul>
+## **Author**
+Yonas Leykun
 
-<h4 class="task">
-8. The big print gives and the small print takes away
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the following flag characters for non-custom conversion specifiers:</p>
-
-<ul>
-<li><code>+</code></li>
-<li>space</li>
-<li><code>#</code></li>
-</ul>
-
-<h4 class="task">
-9. Sarcasm is lost in print
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the following length modifiers for non-custom conversion specifiers:</p>
-
-<ul>
-<li><code>l</code></li>
-<li><code>h</code></li>
-</ul>
-
-<p>Conversion specifiers to handle: <code>d</code>, <code>i</code>, <code>u</code>, <code>o</code>, <code>x</code>, <code>X</code></p>
-
-<h4 class="task">
-10. Print some money and give it to us for the rain forests
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the field width for non-custom conversion specifiers.</p>
-
-<h4 class="task">
-11. The negative is the equivalent of the composer&#39;s score, and the print the performance
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the precision for non-custom conversion specifiers.</p>
-
-<h4 class="task">
-12. It&#39;s depressing when you&#39;re still around and your albums are out of print
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the <code>0</code> flag character for non-custom conversion specifiers.</p>
-
-<h4 class="task">
-13. Every time that I wanted to give up, if I saw an interesting textile, print what ever, suddenly I would see a collection
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-<p>Handle the <code>-</code> flag character for non-custom conversion specifiers.</p>
-
-<h4 class="task">
-14. Print is the sharpest and the strongest weapon of our party
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the following custom conversion specifier:</p>
-
-<ul>
-<li><code>r</code> : prints the reversed string</li>
-</ul>
-
-<h4 class="task">
-15. The flood of print has turned reading into a process of gulping rather than savoring
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>Handle the following custom conversion specifier:</p>
-
-<ul>
-<li><code>R</code>: prints the rot13&#39;ed string</li>
-</ul>
-
-<h4 class="task">
-16. *
-<span class="alert alert-info mandatory-optional">
-#advanced
-</span>
-</h4>
-
-<p>All the above options work well together.</p>
