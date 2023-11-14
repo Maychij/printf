@@ -29,7 +29,7 @@ int print_pointer(va_list types, char buffer[],
 	buffer[BUFF_SIZE - 1] = '\0';
 	UNUSED(precision);
 
-uintptr_t num_addrs = (uintptr_t)addrs;
+	num_addrs = (unsigned long)addrs;
 
 	while (num_addrs > 0)
 	{
